@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { getItem } from '@/api/login'
-export default () => {
+const Test = () => {
+  console.log(1)
   useEffect(() => {
     getItem(1)
       .then((res) => {
@@ -8,5 +9,12 @@ export default () => {
       })
       .catch((err) => console.log(err))
   }, [])
-  return <div>homePage</div>
+  return <>123</>
+}
+export default () => {
+  return (
+    <div>
+      <Test />
+    </div>
+  )
 }

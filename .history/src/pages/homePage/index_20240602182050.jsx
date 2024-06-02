@@ -1,8 +1,9 @@
 import { useEffect } from 'react'
 import { getItem } from '@/api/login'
 export default () => {
+  console.log(1)
   useEffect(() => {
-    getItem(1)
+    getItem(data)
       .then((res) => {
         console.log(res)
       })

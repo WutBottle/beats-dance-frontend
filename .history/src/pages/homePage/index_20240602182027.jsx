@@ -1,8 +1,8 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { getItem } from '@/api/login'
 export default () => {
   useEffect(() => {
-    getItem(1)
+    getItem(data)
       .then((res) => {
         console.log(res)
       })
