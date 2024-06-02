@@ -11,13 +11,6 @@ export default defineConfig({
       '@': '/src',
     }
   },
-  css: {
-    preprocessorOptions: {
-      less: {
-        javascriptEnabled: true,
-      }
-    },
-  },
   server: {
     host: '0.0.0.0',
     port: 8080
