@@ -6,7 +6,6 @@ export default () => {
   const navigate = useNavigate()
   const onFinish = (values) => {
     console.log('Success:', values)
-    navigate('/home')
   }
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo)
