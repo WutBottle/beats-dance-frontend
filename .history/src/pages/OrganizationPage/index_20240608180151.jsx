@@ -19,7 +19,7 @@ export default () => {
     {
       title: '创建时间',
       dataIndex: 'createTime',
-      render: (time) => dayjs(time).format('YYYY-MM-DD HH:mm:ss'),
+      render: (time) => dayjs(time).format('YYYY-MM-DD HH-mm-ss'),
     },
     {
       title: '操作',
@@ -31,10 +31,9 @@ export default () => {
           <a
             onClick={() => {
               const { id } = record || {}
+              const findIndex = dataSource.findIndex((item) => item.id === id)
               setDataSource((pre) => {
-                const findIndex = pre.findIndex((item) => item.id === id)
-                pre.splice(findIndex, 1)
-                return [...pre]
+                return pre.splice(findIndex, 1)
               })
               message.success('删除成功')
             }}

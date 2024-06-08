@@ -19,28 +19,14 @@ export default () => {
     {
       title: '创建时间',
       dataIndex: 'createTime',
-      render: (time) => dayjs(time).format('YYYY-MM-DD HH:mm:ss'),
     },
     {
       title: '操作',
       key: 'action',
-      width: 120,
       render: (_, record) => (
         <Space size="middle">
           <a>修改</a>
-          <a
-            onClick={() => {
-              const { id } = record || {}
-              setDataSource((pre) => {
-                const findIndex = pre.findIndex((item) => item.id === id)
-                pre.splice(findIndex, 1)
-                return [...pre]
-              })
-              message.success('删除成功')
-            }}
-          >
-            删除
-          </a>
+          <a>删除</a>
         </Space>
       ),
     },
@@ -55,7 +41,7 @@ export default () => {
           </Button>
         }
       >
-        <Table rowKey="id" columns={columns} dataSource={dataSource} />
+        <Table columns={columns} dataSource={dataSource} />
       </Card>
       <Modal
         title="创建机构"
@@ -77,7 +63,6 @@ export default () => {
             })
             message.success('创建成功')
             setOpen(false)
-            form.resetFields()
           })
         }}
         onCancel={() => setOpen(false)}

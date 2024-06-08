@@ -1,6 +1,5 @@
-import { Card, Button, Space, Table, Modal, Form, Input, message } from 'antd'
+import { Card, Button, Space, Table, Modal, Form } from 'antd'
 import { useState } from 'react'
-import dayjs from 'dayjs'
 
 export default () => {
   const [form] = Form.useForm()
@@ -19,28 +18,14 @@ export default () => {
     {
       title: '创建时间',
       dataIndex: 'createTime',
-      render: (time) => dayjs(time).format('YYYY-MM-DD HH:mm:ss'),
     },
     {
       title: '操作',
       key: 'action',
-      width: 120,
       render: (_, record) => (
         <Space size="middle">
           <a>修改</a>
-          <a
-            onClick={() => {
-              const { id } = record || {}
-              setDataSource((pre) => {
-                const findIndex = pre.findIndex((item) => item.id === id)
-                pre.splice(findIndex, 1)
-                return [...pre]
-              })
-              message.success('删除成功')
-            }}
-          >
-            删除
-          </a>
+          <a>删除</a>
         </Space>
       ),
     },
@@ -55,35 +40,15 @@ export default () => {
           </Button>
         }
       >
-        <Table rowKey="id" columns={columns} dataSource={dataSource} />
+        <Table columns={columns} dataSource={dataSource} />
       </Card>
       <Modal
         title="创建机构"
         centered
         open={open}
-        onOk={() => {
-          form.validateFields().then((values) => {
-            const { name } = values || {}
-            setDataSource((pre) => {
-              return [
-                ...pre,
-                {
-                  organ: name,
-                  owner: '张鹏',
-                  createTime: dayjs().valueOf(),
-                  id: dayjs().valueOf(),
-                },
-              ]
-            })
-            message.success('创建成功')
-            setOpen(false)
-            form.resetFields()
-          })
-        }}
+        onOk={() => setOpen(false)}
         onCancel={() => setOpen(false)}
         width={600}
-        okText="确定"
-        cancelText="取消"
       >
         <Form
           form={form}

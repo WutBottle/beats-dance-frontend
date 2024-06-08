@@ -1,6 +1,5 @@
-import { Card, Button, Space, Table, Modal, Form, Input, message } from 'antd'
+import { Card, Button, Space, Table, Modal, Form } from 'antd'
 import { useState } from 'react'
-import dayjs from 'dayjs'
 
 export default () => {
   const [form] = Form.useForm()
@@ -19,28 +18,14 @@ export default () => {
     {
       title: '创建时间',
       dataIndex: 'createTime',
-      render: (time) => dayjs(time).format('YYYY-MM-DD HH:mm:ss'),
     },
     {
       title: '操作',
       key: 'action',
-      width: 120,
       render: (_, record) => (
         <Space size="middle">
           <a>修改</a>
-          <a
-            onClick={() => {
-              const { id } = record || {}
-              setDataSource((pre) => {
-                const findIndex = pre.findIndex((item) => item.id === id)
-                pre.splice(findIndex, 1)
-                return [...pre]
-              })
-              message.success('删除成功')
-            }}
-          >
-            删除
-          </a>
+          <a>删除</a>
         </Space>
       ),
     },
@@ -55,35 +40,15 @@ export default () => {
           </Button>
         }
       >
-        <Table rowKey="id" columns={columns} dataSource={dataSource} />
+        <Table columns={columns} dataSource={dataSource} />
       </Card>
       <Modal
         title="创建机构"
         centered
         open={open}
-        onOk={() => {
-          form.validateFields().then((values) => {
-            const { name } = values || {}
-            setDataSource((pre) => {
-              return [
-                ...pre,
-                {
-                  organ: name,
-                  owner: '张鹏',
-                  createTime: dayjs().valueOf(),
-                  id: dayjs().valueOf(),
-                },
-              ]
-            })
-            message.success('创建成功')
-            setOpen(false)
-            form.resetFields()
-          })
-        }}
+        onOk={() => setOpen(false)}
         onCancel={() => setOpen(false)}
         width={600}
-        okText="确定"
-        cancelText="取消"
       >
         <Form
           form={form}
@@ -94,18 +59,45 @@ export default () => {
           wrapperCol={{
             span: 20,
           }}
+          onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
+          autoComplete="off"
         >
           <Form.Item
-            label="机构名称"
-            name="name"
+            label="用户名"
+            name="username"
             rules={[
               {
                 required: true,
-                message: '请输入机构名称!',
+                message: '请输入用户名!',
               },
             ]}
           >
             <Input />
+          </Form.Item>
+
+          <Form.Item
+            label="密码"
+            name="password"
+            rules={[
+              {
+                required: true,
+                message: '请输入密码!',
+              },
+            ]}
+          >
+            <Input.Password />
+          </Form.Item>
+
+          <Form.Item
+            wrapperCol={{
+              offset: 4,
+              span: 20,
+            }}
+          >
+            <Button type="primary" htmlType="submit">
+              登录
+            </Button>
           </Form.Item>
         </Form>
       </Modal>
