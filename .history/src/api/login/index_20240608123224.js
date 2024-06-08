@@ -1,5 +1,5 @@
 import axiosApi from "../axiosApi"
 
-export const login = (data) => {
+export const getItem = (data) => {
   return axiosApi.post(`/login`, data)
 }

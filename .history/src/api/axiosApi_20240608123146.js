@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { message } from 'antd'
 
-const BACKEND_IP_PORT = '192.168.2.21:8000'
+const BACKEND_IP_PORT = '192.168.1.216:8080'
 // 创建一个 Axios 实例
 const instance = axios.create({
   baseURL: `http://${BACKEND_IP_PORT}`, // API 的基础 URL
@@ -9,22 +9,26 @@ const instance = axios.create({
 });
 
 // 请求拦截器
-// instance.interceptors.request.use(
-//   // config => {
-//   //   config.headers['Authorization'] = `Bearer ${yourAuthToken}`;
-//   //   return config;
-//   // },
-//   error => {
-//     return Promise.reject(error);
-//   }
-// );
+instance.interceptors.request.use(
+  // config => {
+  //   config.headers['Authorization'] = `Bearer ${yourAuthToken}`;
+  //   return config;
+  // },
+  error => {
+    return Promise.reject(error);
+  }
+);
 
 // 响应拦截器
 instance.interceptors.response.use(
   response => {
-    return {
-      data: response?.data
+    // 对响应数据做点什么
+    if (response.data.code === 0) {
+      message.success(response.data.message);
+    } else {
+      message.error(response.data.message);
     }
+    return response;
   },
   error => {
     if (error.response) {

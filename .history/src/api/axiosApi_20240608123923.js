@@ -9,22 +9,26 @@ const instance = axios.create({
 });
 
 // 请求拦截器
-// instance.interceptors.request.use(
-//   // config => {
-//   //   config.headers['Authorization'] = `Bearer ${yourAuthToken}`;
-//   //   return config;
-//   // },
-//   error => {
-//     return Promise.reject(error);
-//   }
-// );
+instance.interceptors.request.use(
+  // config => {
+  //   config.headers['Authorization'] = `Bearer ${yourAuthToken}`;
+  //   return config;
+  // },
+  error => {
+    return Promise.reject(error);
+  }
+);
 
 // 响应拦截器
 instance.interceptors.response.use(
   response => {
-    return {
-      data: response?.data
+    // 对响应数据做点什么
+    if (response.data.code === 0) {
+      message.success(response.data.message);
+    } else {
+      message.error(response.data.message);
     }
+    return response;
   },
   error => {
     if (error.response) {
@@ -43,6 +47,7 @@ instance.interceptors.response.use(
 
 // 封装一个通用的请求方法
 function request(url, method, data, config) {
+  console.log(url, method, data, config)
   return instance({
     url,
     method,

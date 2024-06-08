@@ -15,6 +15,7 @@ export default () => {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken()
   const { pathname } = useLocation()
+  console.log(location)
   return (
     <Layout className={styles.homeWrapper}>
       <Sider trigger={null} collapsible collapsed={collapsed}>

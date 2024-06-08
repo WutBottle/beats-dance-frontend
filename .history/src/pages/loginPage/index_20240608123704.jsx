@@ -1,16 +1,15 @@
 import styles from './index.module.less'
 import { useNavigate } from 'react-router'
-import { Button, Form, Input, message } from 'antd'
+import { Button, Form, Input } from 'antd'
 import { login } from '@api/login'
 
 export default () => {
   const navigate = useNavigate()
   const onFinish = (values) => {
+    console.log('Success:', values)
     login(values).then((res) => {
       console.log(res)
-      const { username } = res.data || {}
-      message.success(`你好，${username}！`)
-      navigate('/home/user')
+      navigate('/home')
     })
   }
   const onFinishFailed = (errorInfo) => {

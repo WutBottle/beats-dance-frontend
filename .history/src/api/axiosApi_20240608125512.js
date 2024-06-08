@@ -22,9 +22,7 @@ const instance = axios.create({
 // 响应拦截器
 instance.interceptors.response.use(
   response => {
-    return {
-      data: response?.data
-    }
+    return response;
   },
   error => {
     if (error.response) {

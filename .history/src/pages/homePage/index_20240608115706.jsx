@@ -6,7 +6,7 @@ import {
   AppstoreOutlined,
 } from '@ant-design/icons'
 import { Button, Layout, Menu, theme } from 'antd'
-import { Outlet, Link, useLocation } from 'react-router-dom'
+import { Outlet, Link } from 'react-router-dom'
 import styles from './index.module.less'
 const { Header, Sider, Content } = Layout
 export default () => {
@@ -14,24 +14,31 @@ export default () => {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken()
-  const { pathname } = useLocation()
   return (
     <Layout className={styles.homeWrapper}>
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <Menu
           theme="dark"
           mode="inline"
-          selectedKeys={[pathname]}
+          defaultSelectedKeys={['userCenter']}
           items={[
             {
-              key: '/home/user',
+              key: 'userCenter',
               icon: <UserOutlined />,
-              label: <Link to="/home/user">用户中心</Link>,
+              label: '用户中心',
             },
             {
-              key: '/home/organization',
+              key: 'organizationCenter',
               icon: <AppstoreOutlined />,
-              label: <Link to="/home/organization">机构列表</Link>,
+              label: (
+                <Link
+                  to="/"
+                  onClick={(event) => handleNavLinkClick(event, '/')}
+                  className={activePath === '/' ? 'active' : ''}
+                >
+                  机构列表
+                </Link>
+              ),
             },
           ]}
         />

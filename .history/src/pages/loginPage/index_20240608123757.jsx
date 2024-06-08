@@ -6,9 +6,10 @@ import { login } from '@api/login'
 export default () => {
   const navigate = useNavigate()
   const onFinish = (values) => {
+    console.log('Success:', values)
     login(values).then((res) => {
       console.log(res)
-      const { username } = res.data || {}
+      const { username } = res
       message.success(`你好，${username}！`)
       navigate('/home/user')
     })

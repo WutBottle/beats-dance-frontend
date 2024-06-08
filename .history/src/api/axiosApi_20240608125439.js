@@ -22,9 +22,13 @@ const instance = axios.create({
 // 响应拦截器
 instance.interceptors.response.use(
   response => {
-    return {
-      data: response?.data
+    // 对响应数据做点什么
+    if (response.data.code === 0) {
+      message.success(response.data.message);
+    } else {
+      message.error(response.data.message);
     }
+    return response;
   },
   error => {
     if (error.response) {

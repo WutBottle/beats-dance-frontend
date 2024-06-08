@@ -14,22 +14,22 @@ export default () => {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken()
-  const { pathname } = useLocation()
+  const location = useLocation()
   return (
     <Layout className={styles.homeWrapper}>
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <Menu
           theme="dark"
           mode="inline"
-          selectedKeys={[pathname]}
+          selectedKeys={['userCenter']}
           items={[
             {
-              key: '/home/user',
+              key: 'userCenter',
               icon: <UserOutlined />,
               label: <Link to="/home/user">用户中心</Link>,
             },
             {
-              key: '/home/organization',
+              key: 'organizationCenter',
               icon: <AppstoreOutlined />,
               label: <Link to="/home/organization">机构列表</Link>,
             },

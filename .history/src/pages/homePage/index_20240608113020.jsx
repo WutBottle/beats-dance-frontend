@@ -2,11 +2,11 @@ import React, { useState } from 'react'
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
+  UploadOutlined,
   UserOutlined,
-  AppstoreOutlined,
+  VideoCameraOutlined,
 } from '@ant-design/icons'
 import { Button, Layout, Menu, theme } from 'antd'
-import { Outlet, Link, useLocation } from 'react-router-dom'
 import styles from './index.module.less'
 const { Header, Sider, Content } = Layout
 export default () => {
@@ -14,24 +14,29 @@ export default () => {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken()
-  const { pathname } = useLocation()
   return (
-    <Layout className={styles.homeWrapper}>
+    <Layout>
       <Sider trigger={null} collapsible collapsed={collapsed}>
+        <div className="demo-logo-vertical" />
         <Menu
           theme="dark"
           mode="inline"
-          selectedKeys={[pathname]}
+          defaultSelectedKeys={['1']}
           items={[
             {
-              key: '/home/user',
+              key: '1',
               icon: <UserOutlined />,
-              label: <Link to="/home/user">用户中心</Link>,
+              label: 'nav 1',
             },
             {
-              key: '/home/organization',
-              icon: <AppstoreOutlined />,
-              label: <Link to="/home/organization">机构列表</Link>,
+              key: '2',
+              icon: <VideoCameraOutlined />,
+              label: 'nav 2',
+            },
+            {
+              key: '3',
+              icon: <UploadOutlined />,
+              label: 'nav 3',
             },
           ]}
         />
@@ -63,7 +68,7 @@ export default () => {
             borderRadius: borderRadiusLG,
           }}
         >
-          <Outlet />
+          Content
         </Content>
       </Layout>
     </Layout>
