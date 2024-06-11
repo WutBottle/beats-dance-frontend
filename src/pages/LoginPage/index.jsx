@@ -16,6 +16,7 @@ export default () => {
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo)
   }
+
   return (
     <div className={styles.loginWrapper}>
       <Form
